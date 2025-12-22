@@ -1,0 +1,60 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { 
+  typeName: 'Operation',
+  typeNamePlural: 'Operations',
+  title: { value: 'OperationId' },
+  description: { value: 'OperationDesc' }
+}
+
+annotate entity ZC_PM_OPERATION with
+{
+  // ============================================
+  // LINE ITEM (Table in Order Object Page)
+  // ============================================
+  
+  @UI.lineItem: [{ position: 10, importance: #HIGH }]
+  @EndUserText: { label: 'Op. No.' }
+  OperationId;
+
+  @UI.lineItem: [{ position: 20 }]
+  @EndUserText: { label: 'Description' }
+  OperationDesc;
+
+  @UI.lineItem: [{ position: 30, criticality: 'StatusCriticality', criticalityRepresentation: #WITH_ICON }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Status' }
+  StatusText;
+
+  @UI.lineItem: [{ position: 40 }]
+  @EndUserText: { label: 'Work Center' }
+  WorkCenter;
+
+  @UI.lineItem: [{ position: 50 }]
+  @EndUserText: { label: 'Technician' }
+  Technician;
+
+  @UI.lineItem: [{ position: 60 }]
+  @EndUserText: { label: 'Planned Hrs' }
+  PlannedHours;
+
+  @UI.lineItem: [{ position: 70 }]
+  @EndUserText: { label: 'Actual Hrs' }
+  ActualHours;
+
+  // Hidden fields
+  @UI.hidden: true
+  OrderId;
+  
+  @UI.hidden: true
+  Status;
+  
+  @UI.hidden: true
+  StatusCriticality;
+  
+  @UI.hidden: true
+  ProgressPercent;
+  
+  @UI.hidden: true
+  Notes;
+}

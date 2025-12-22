@@ -1,0 +1,170 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { 
+  typeName: 'Equipment',
+  typeNamePlural: 'Equipments',
+  title: { value: 'EquipmentName' },
+  description: { value: 'EquipmentId' },
+  imageUrl: ''
+}
+
+annotate entity ZC_PM_EQUIPMENT with
+{
+  // ============================================
+  // FACETS - Object Page Sections
+  // ============================================
+  @UI.facet: [
+    // Section 1: General Information
+    {
+      id:              'GeneralInfo',
+      position:        10,
+      label:           'General Information',
+      type:            #IDENTIFICATION_REFERENCE
+    },
+    // Section 2: Technical Data
+    {
+      id:              'TechnicalData',
+      position:        20,
+      label:           'Technical Data',
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Technical'
+    },
+    // Section 3: Location
+    {
+      id:              'LocationInfo',
+      position:        30,
+      label:           'Location',
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Location'
+    },
+    // Section 4: Warranty & Dates
+    {
+      id:              'DatesInfo',
+      position:        40,
+      label:           'Warranty & Dates',
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Dates'
+    },
+    // Section 5: Maintenance Orders (Table)
+    {
+      id:              'MaintenanceOrders',
+      position:        50,
+      label:           'Maintenance Orders',
+      type:            #LINEITEM_REFERENCE,
+      targetElement:   '_Orders'
+    }
+  ]
+
+  // ============================================
+  // FIELD ANNOTATIONS - List Report & Basic Info
+  // ============================================
+  
+  // Equipment ID
+  @UI.lineItem:       [{ position: 10, importance: #HIGH }]
+  @UI.identification: [{ position: 10 }]
+  @UI.selectionField: [{ position: 10 }]
+  @EndUserText: { label: 'Equipment ID', quickInfo: 'Unique Equipment Identifier' }
+  EquipmentId;
+
+  // Equipment Name
+  @UI.lineItem:       [{ position: 20, importance: #HIGH }]
+  @UI.identification: [{ position: 20 }]
+  @EndUserText: { label: 'Name' }
+  EquipmentName;
+
+  // Equipment Type
+  @UI.lineItem:       [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  @UI.selectionField: [{ position: 20 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Type' }
+  EquipmentTypeText;
+  
+  @UI.hidden: true
+  EquipmentType;
+
+  // Status with Color
+  @UI.lineItem:       [{ position: 40, criticality: 'StatusCriticality', criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 40, criticality: 'StatusCriticality' }]
+  @UI.selectionField: [{ position: 30 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Status' }
+  StatusText;
+
+  @UI.hidden: true
+  Status;
+  
+  @UI.hidden: true
+  StatusCriticality;
+
+  // Criticality with Color
+  @UI.lineItem:       [{ position: 50, criticality: 'CriticalitySeverity', criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 50, criticality: 'CriticalitySeverity' }]
+  @UI.selectionField: [{ position: 40 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Criticality' }
+  CriticalityText;
+
+  @UI.hidden: true
+  Criticality;
+  
+  @UI.hidden: true
+  CriticalitySeverity;
+
+  // Location in List
+  @UI.lineItem:       [{ position: 60 }]
+  @EndUserText: { label: 'Location' }
+  LocationName;
+
+  // ============================================
+  // FIELD GROUP: Technical Data
+  // ============================================
+  @UI.fieldGroup: [{ qualifier: 'Technical', position: 10 }]
+  @EndUserText: { label: 'Manufacturer' }
+  Manufacturer;
+
+  @UI.fieldGroup: [{ qualifier: 'Technical', position: 20 }]
+  @EndUserText: { label: 'Model' }
+  Model;
+
+  @UI.fieldGroup: [{ qualifier: 'Technical', position: 30 }]
+  @EndUserText: { label: 'Serial Number' }
+  SerialNumber;
+
+  // ============================================
+  // FIELD GROUP: Location
+  // ============================================
+  @UI.fieldGroup: [{ qualifier: 'Location', position: 10 }]
+  @EndUserText: { label: 'Location ID' }
+  LocationId;
+
+  @UI.fieldGroup: [{ qualifier: 'Location', position: 20 }]
+  @EndUserText: { label: 'Plant' }
+  Plant;
+
+  @UI.fieldGroup: [{ qualifier: 'Location', position: 30 }]
+  @EndUserText: { label: 'Area' }
+  Area;
+
+  // ============================================
+  // FIELD GROUP: Warranty & Dates
+  // ============================================
+  @UI.fieldGroup: [{ qualifier: 'Dates', position: 10 }]
+  @EndUserText: { label: 'Acquisition Date' }
+  AcquisitionDate;
+
+  @UI.fieldGroup: [{ qualifier: 'Dates', position: 20 }]
+  @EndUserText: { label: 'Warranty End' }
+  WarrantyEnd;
+
+  @UI.fieldGroup: [{ qualifier: 'Dates', position: 30, criticality: 'WarrantyCriticality' }]
+  @EndUserText: { label: 'Warranty Status' }
+  WarrantyStatus;
+
+  @UI.hidden: true
+  WarrantyCriticality;
+
+  // Hidden calculated field
+  @UI.hidden: true
+  EquipmentFullDesc;
+}

@@ -1,0 +1,152 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { 
+  typeName: 'Maintenance Order',
+  typeNamePlural: 'Maintenance Orders',
+  title: { value: 'OrderId' },
+  description: { value: 'Description' }
+}
+
+annotate entity ZC_PM_ORDER with
+{
+  @UI.facet: [
+    {
+      id:              'OrderInfo',
+      position:        10,
+      label:           'Order Information',
+      type:            #IDENTIFICATION_REFERENCE
+    },
+    {
+      id:              'PeopleInfo',
+      position:        20,
+      label:           'People',
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'People'
+    },
+    {
+      id:              'DatesInfo',
+      position:        30,
+      label:           'Dates',
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Dates'
+    },
+    {
+      id:              'CostsInfo',
+      position:        40,
+      label:           'Costs',
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Costs'
+    },
+    {
+      id:              'Operations',
+      position:        50,
+      label:           'Operations',
+      type:            #LINEITEM_REFERENCE,
+      targetElement:   '_Operations'
+    }
+  ]
+
+  @UI.lineItem:       [{ position: 10, importance: #HIGH }]
+  @UI.identification: [{ position: 10 }]
+  @UI.selectionField: [{ position: 10 }]
+  @EndUserText: { label: 'Order No.' }
+  OrderId;
+
+  @UI.lineItem:       [{ position: 15 }]
+  @UI.identification: [{ position: 15 }]
+  @UI.selectionField: [{ position: 15 }]
+  @EndUserText: { label: 'Equipment' }
+  EquipmentId;
+
+  @UI.lineItem:       [{ position: 20, criticality: 'OrderTypeCriticality', criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 20, criticality: 'OrderTypeCriticality' }]
+  @UI.selectionField: [{ position: 20 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Order Type' }
+  OrderTypeText;
+  
+  @UI.hidden: true
+  OrderType;
+  
+  @UI.hidden: true
+  OrderTypeCriticality;
+
+  @UI.lineItem:       [{ position: 30, criticality: 'PriorityCriticality', criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 30, criticality: 'PriorityCriticality' }]
+  @UI.selectionField: [{ position: 30 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Priority' }
+  PriorityText;
+
+  @UI.hidden: true
+  Priority;
+  
+  @UI.hidden: true
+  PriorityCriticality;
+
+  @UI.lineItem:       [{ position: 40, criticality: 'StatusCriticality', criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 40, criticality: 'StatusCriticality' }]
+  @UI.selectionField: [{ position: 40 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText: { label: 'Status' }
+  StatusText;
+
+  @UI.hidden: true
+  Status;
+  
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI.lineItem:       [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  @EndUserText: { label: 'Description' }
+  Description;
+
+  // ✅ COMBINADO: PlannedStart en lineItem Y fieldGroup
+  @UI.lineItem:       [{ position: 60 }]
+  @UI.fieldGroup:     [{ qualifier: 'Dates', position: 10 }]
+  @EndUserText: { label: 'Planned Start' }
+  PlannedStart;
+
+  // ✅ COMBINADO: AssignedTo en lineItem Y fieldGroup
+  @UI.lineItem:       [{ position: 70 }]
+  @UI.fieldGroup:     [{ qualifier: 'People', position: 20 }]
+  @EndUserText: { label: 'Assigned To' }
+  AssignedTo;
+
+  @UI.identification: [{ position: 60 }]
+  @UI.multiLineText: true
+  @EndUserText: { label: 'Long Text' }
+  LongText;
+
+  @UI.fieldGroup: [{ qualifier: 'People', position: 10 }]
+  @EndUserText: { label: 'Reported By' }
+  ReportedBy;
+
+  @UI.fieldGroup: [{ qualifier: 'Dates', position: 20 }]
+  @EndUserText: { label: 'Planned End' }
+  PlannedEnd;
+
+  @UI.fieldGroup: [{ qualifier: 'Dates', position: 30 }]
+  @EndUserText: { label: 'Actual Start' }
+  ActualStart;
+
+  @UI.fieldGroup: [{ qualifier: 'Dates', position: 40 }]
+  @EndUserText: { label: 'Actual End' }
+  ActualEnd;
+
+  @UI.fieldGroup: [{ qualifier: 'Costs', position: 10 }]
+  @EndUserText: { label: 'Estimated Cost' }
+  EstimatedCost;
+
+  @UI.fieldGroup: [{ qualifier: 'Costs', position: 20 }]
+  @EndUserText: { label: 'Actual Cost' }
+  ActualCost;
+
+  @UI.fieldGroup: [{ qualifier: 'Costs', position: 30 }]
+  @EndUserText: { label: 'Currency' }
+  Currency;
+
+  @UI.hidden: true
+  CreatedAt;
+}

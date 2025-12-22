@@ -1,0 +1,7 @@
+@EndUserText.label: 'Service - Plant Maintenance'
+define service ZSD_PM_MAINTENANCE {
+  expose ZC_PM_EQUIPMENT as Equipment;
+  expose ZC_PM_ORDER     as MaintenanceOrder;
+  expose ZC_PM_OPERATION as Operation;
+  expose ZI_PM_LOCATION  as Location;
+}
