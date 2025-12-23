@@ -1,0 +1,63 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName:       'Project',
+  typeNamePlural: 'Projects',
+  title:          { value: 'Projid' },
+  description:    { value: 'ProjectName' }
+}
+
+annotate entity ZC_GLUCES_PROJ2 with
+{
+  @UI.facet: [
+    {
+      id:       'ProjectInfo',
+      position: 10,
+      label:    'Project Information',
+      type:     #IDENTIFICATION_REFERENCE
+    },
+    {
+      id:            'SkillsInfo',
+      position:      20,
+      label:         'Skills',
+      type:          #LINEITEM_REFERENCE,
+      targetElement: '_Skills'
+    }
+  ]
+
+  @UI.lineItem:       [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
+  @EndUserText: { label: 'Employee ID' }
+  Emplid;
+
+  @UI.lineItem:       [{ position: 20, importance: #HIGH }]
+  @UI.identification: [{ position: 20 }]
+  @EndUserText: { label: 'Project ID' }
+  Projid;
+
+  @UI.lineItem:       [{ position: 30, importance: #HIGH }]
+  @UI.identification: [{ position: 30 }]
+  @EndUserText: { label: 'Project Name' }
+  ProjectName;
+
+  @UI.lineItem:       [{ position: 40 }]
+  @UI.identification: [{ position: 40 }]
+  @EndUserText: { label: 'Type' }
+  ProjectTypeText;
+
+  @UI.hidden: true
+  ProjectType;
+
+  @UI.lineItem:       [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  @EndUserText: { label: 'Current?' }
+  IsCurrentText;
+
+  @UI.hidden: true
+  IsCurrent;
+
+  @UI.lineItem:       [{ position: 60 }]
+  @UI.identification: [{ position: 60 }]
+  @EndUserText: { label: 'Duration (months)' }
+  Duration;
+}

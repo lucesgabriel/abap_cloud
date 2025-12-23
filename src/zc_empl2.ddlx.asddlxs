@@ -1,8 +1,6 @@
 @Metadata.layer: #CORE
 
-@Search.searchable: true
-
-@UI.headerInfo: { 
+@UI.headerInfo: {
   typeName:       'Employee',
   typeNamePlural: 'Employees',
   title:          { value: 'Emplid' },
@@ -10,87 +8,94 @@
   typeImageUrl:   'sap-icon://employee'
 }
 
-annotate entity ZC_GLUCES_EMPL2
-with
+annotate entity ZC_GLUCES_EMPL2 with
 {
   @UI.facet: [
-    { 
-      position: 10, 
-      label:    'Basic Info', 
-      type:     #IDENTIFICATION_REFERENCE 
+    {
+      id:       'BasicInfo',
+      position: 10,
+      label:    'Basic Information',
+      type:     #IDENTIFICATION_REFERENCE
     },
-    { 
-      position:        20, 
-      label:           'Contact Info', 
+    {
+      id:              'ContactInfo',
+      position:        20,
+      label:           'Contact Information',
       type:            #FIELDGROUP_REFERENCE,
-      targetQualifier: 'ContactInfo'
+      targetQualifier: 'Contact'
     },
-    { 
-      position:        30, 
-      label:           'Address Info', 
+    {
+      id:              'AddressInfo',
+      position:        30,
+      label:           'Address Information',
       type:            #FIELDGROUP_REFERENCE,
-      targetQualifier: 'AddressInfo'
+      targetQualifier: 'Address'
+    },
+    {
+      id:            'ProjectsInfo',
+      position:      40,
+      label:         'Projects',
+      type:          #LINEITEM_REFERENCE,
+      targetElement: '_Projects'
     }
   ]
 
-  @UI.lineItem:       [{ position: 10 }]
+  @UI.lineItem:       [{ position: 10, importance: #HIGH }]
   @UI.selectionField: [{ position: 10 }]
   @UI.identification: [{ position: 10 }]
-  @EndUserText: { label: 'Employee No.', quickInfo: 'Employee ID' }
+  @EndUserText: { label: 'Employee No.', quickInfo: 'Employee Number' }
   Emplid;
 
-  @UI.lineItem:       [{ position: 20 }]
+  @UI.lineItem:       [{ position: 20, importance: #HIGH }]
   @UI.identification: [{ position: 20 }]
-  @EndUserText: { label: 'First Name', quickInfo: 'First Name' }
-  @Search.defaultSearchElement: true
+  @EndUserText: { label: 'First Name' }
   Fname;
 
-  @UI.lineItem:       [{ position: 30 }]
+  @UI.lineItem:       [{ position: 30, importance: #HIGH }]
   @UI.identification: [{ position: 30 }]
-  @EndUserText: { label: 'Last Name', quickInfo: 'Last Name' }
-  @Search.defaultSearchElement: true
+  @EndUserText: { label: 'Last Name' }
   Lname;
 
   @UI.lineItem:       [{ position: 40 }]
   @UI.selectionField: [{ position: 20 }]
   @UI.identification: [{ position: 40 }]
-  @EndUserText: { label: 'Gender', quickInfo: 'Gender (M/F)' }
+  @EndUserText: { label: 'Gender' }
   Gender;
 
   @UI.lineItem:       [{ position: 50 }]
   @UI.selectionField: [{ position: 30 }]
   @UI.identification: [{ position: 50 }]
-  @EndUserText: { label: 'Designation', quickInfo: 'Job Role' }
+  @EndUserText: { label: 'Designation' }
   Designation;
 
   @UI.hidden: true
   Fullname;
 
-  @UI.fieldGroup: [{ qualifier: 'ContactInfo', position: 10 }]
-  @EndUserText: { label: 'Phone', quickInfo: 'Primary Phone' }
+  @UI.fieldGroup: [{ qualifier: 'Contact', position: 10 }]
+  @EndUserText: { label: 'Phone No.' }
   PhoneNum;
 
-  @UI.fieldGroup: [{ qualifier: 'ContactInfo', position: 20 }]
-  @EndUserText: { label: 'Alt. Phone', quickInfo: 'Alternative Phone' }
+  @UI.fieldGroup: [{ qualifier: 'Contact', position: 20 }]
+  @EndUserText: { label: 'Alt. Phone No.' }
   AltPhoneNum;
 
-  @UI.fieldGroup: [{ qualifier: 'ContactInfo', position: 30 }]
-  @EndUserText: { label: 'Email', quickInfo: 'Primary Email' }
+  @UI.fieldGroup: [{ qualifier: 'Contact', position: 30 }]
+  @EndUserText: { label: 'Email ID' }
   EmailId;
 
-  @UI.fieldGroup: [{ qualifier: 'ContactInfo', position: 40 }]
-  @EndUserText: { label: 'Alt. Email', quickInfo: 'Alternative Email' }
+  @UI.fieldGroup: [{ qualifier: 'Contact', position: 40 }]
+  @EndUserText: { label: 'Alt. Email ID' }
   AltEmailId;
 
-  @UI.fieldGroup: [{ qualifier: 'AddressInfo', position: 10 }]
-  @EndUserText: { label: 'Street', quickInfo: 'Street' }
+  @UI.fieldGroup: [{ qualifier: 'Address', position: 10 }]
+  @EndUserText: { label: 'Street' }
   Street;
 
-  @UI.fieldGroup: [{ qualifier: 'AddressInfo', position: 20 }]
-  @EndUserText: { label: 'City', quickInfo: 'City' }
+  @UI.fieldGroup: [{ qualifier: 'Address', position: 20 }]
+  @EndUserText: { label: 'City' }
   City;
 
-  @UI.fieldGroup: [{ qualifier: 'AddressInfo', position: 30 }]
-  @EndUserText: { label: 'Country', quickInfo: 'Country' }
+  @UI.fieldGroup: [{ qualifier: 'Address', position: 30 }]
+  @EndUserText: { label: 'Country' }
   Country;
 }

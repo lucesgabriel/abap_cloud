@@ -1,4 +1,6 @@
 @EndUserText.label: 'Service Definition - Employee'
 define service ZSD_EMPL2 {
-  expose ZC_GLUCES_EMPL2 as Employee;
+  expose ZC_GLUCES_EMPL2  as Employee;
+  expose ZC_GLUCES_PROJ2  as Project;
+  expose ZC_GLUCES_SKILL2 as Skill;
 }
