@@ -10,40 +10,65 @@
 
 annotate entity ZC_GLUCES_EMPL2 with
 {
+  // ============================================
+  // FACETS
+  // ============================================
   @UI.facet: [
-    {
+    // Header Area Facets (DataPoints)
+    { position: 10, purpose: #HEADER, type: #DATAPOINT_REFERENCE, targetQualifier: 'HeaderDesignation' },
+    { position: 20, purpose: #HEADER, type: #DATAPOINT_REFERENCE, targetQualifier: 'HeaderCountry' },
+    
+    // Section 1: Basic Info
+    { 
       id:       'BasicInfo',
-      position: 10,
-      label:    'Basic Information',
-      type:     #IDENTIFICATION_REFERENCE
+      position: 10, 
+      purpose:  #STANDARD,
+      label:    'Basic Information', 
+      type:     #IDENTIFICATION_REFERENCE 
     },
-    {
-      id:              'ContactInfo',
-      position:        20,
-      label:           'Contact Information',
-      type:            #FIELDGROUP_REFERENCE,
-      targetQualifier: 'Contact'
+    
+    // Section 2: Collection Facet (Parent) - Communication Info
+    { 
+      id:       'CommunicationInfo',
+      position: 20, 
+      label:    'Communication Info', 
+      type:     #COLLECTION
     },
-    {
-      id:              'AddressInfo',
-      position:        30,
-      label:           'Address Information',
-      type:            #FIELDGROUP_REFERENCE,
-      targetQualifier: 'Address'
-    },
+      // Sub-Facet: Contact Info (Child)
+      { 
+        position:        10, 
+        label:           'Contact Info', 
+        type:            #FIELDGROUP_REFERENCE, 
+        targetQualifier: 'Contact', 
+        parentId:        'CommunicationInfo' 
+      },
+      // Sub-Facet: Address Info (Child)
+      { 
+        position:        20, 
+        label:           'Address Info', 
+        type:            #FIELDGROUP_REFERENCE, 
+        targetQualifier: 'Address', 
+        parentId:        'CommunicationInfo' 
+      },
+    
+    // Section 3: Projects Table
     {
       id:            'ProjectsInfo',
-      position:      40,
+      position:      30,
       label:         'Projects',
       type:          #LINEITEM_REFERENCE,
       targetElement: '_Projects'
     }
   ]
 
+  // ============================================
+  // FIELD ANNOTATIONS - List Report & Identification
+  // ============================================
+
   @UI.lineItem:       [{ position: 10, importance: #HIGH }]
   @UI.selectionField: [{ position: 10 }]
   @UI.identification: [{ position: 10 }]
-  @EndUserText: { label: 'Employee No.', quickInfo: 'Employee Number' }
+  @EndUserText: { label: 'Employee No.', quickInfo: 'Employee Number as per records' }
   Emplid;
 
   @UI.lineItem:       [{ position: 20, importance: #HIGH }]
@@ -65,28 +90,35 @@ annotate entity ZC_GLUCES_EMPL2 with
   @UI.lineItem:       [{ position: 50 }]
   @UI.selectionField: [{ position: 30 }]
   @UI.identification: [{ position: 50 }]
-  @EndUserText: { label: 'Designation' }
+  @UI.dataPoint:      { qualifier: 'HeaderDesignation', title: 'Designation' }
+  @EndUserText: { label: 'Designation', quickInfo: 'Designation based on experience' }
   Designation;
 
   @UI.hidden: true
   Fullname;
 
+  // ============================================
+  // FIELD GROUP: Contact Info (inside Collection)
+  // ============================================
   @UI.fieldGroup: [{ qualifier: 'Contact', position: 10 }]
-  @EndUserText: { label: 'Phone No.' }
+  @EndUserText: { label: 'Phone No.', quickInfo: 'Primary Contact' }
   PhoneNum;
 
   @UI.fieldGroup: [{ qualifier: 'Contact', position: 20 }]
-  @EndUserText: { label: 'Alt. Phone No.' }
+  @EndUserText: { label: 'Alt. Phone No.', quickInfo: 'Alternative Contact' }
   AltPhoneNum;
 
   @UI.fieldGroup: [{ qualifier: 'Contact', position: 30 }]
-  @EndUserText: { label: 'Email ID' }
+  @EndUserText: { label: 'Email ID', quickInfo: 'Primary E-Mail ID' }
   EmailId;
 
   @UI.fieldGroup: [{ qualifier: 'Contact', position: 40 }]
-  @EndUserText: { label: 'Alt. Email ID' }
+  @EndUserText: { label: 'Alt. Email ID', quickInfo: 'Alternative E-Mail ID' }
   AltEmailId;
 
+  // ============================================
+  // FIELD GROUP: Address Info (inside Collection)
+  // ============================================
   @UI.fieldGroup: [{ qualifier: 'Address', position: 10 }]
   @EndUserText: { label: 'Street' }
   Street;
@@ -96,6 +128,7 @@ annotate entity ZC_GLUCES_EMPL2 with
   City;
 
   @UI.fieldGroup: [{ qualifier: 'Address', position: 30 }]
+  @UI.dataPoint: { qualifier: 'HeaderCountry', title: 'Country' }
   @EndUserText: { label: 'Country' }
   Country;
 }
