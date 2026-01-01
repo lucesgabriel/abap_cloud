@@ -232,7 +232,7 @@ Después de publicar los Service Bindings:
 ## 👤 Autor
 
 **Gabriel Luces**  
-SAP Consultant | MM & ABAP Development
+SAP Consultant | MM & PM & ABAP Development
 
 ---
 
